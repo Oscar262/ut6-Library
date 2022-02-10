@@ -19,29 +19,29 @@ public class Library {
     public List<Book> booksWithGenre(String genre) {
         List<Book> books = new LinkedList<>();
         for (Book book : catalogue) {
-            if (book.getGenres().contains(genre)){
-                    books.add(book);
-                }
+            if (book.getGenres().contains(genre)) {
+                books.add(book);
             }
+        }
         return books;
     }
 
-    public List<Member> membersInZipCode(int zipCode){
-        List<Member> membersZipCode=new LinkedList<>();
-        for (Member member:members) {
-            if (member.getZipCode() == zipCode){
+    public List<Member> membersInZipCode(int zipCode) {
+        List<Member> membersZipCode = new LinkedList<>();
+        for (Member member : members) {
+            if (member.getZipCode() == zipCode) {
                 membersZipCode.add(member);
             }
         }
         return membersZipCode;
     }
 
-    public List<BookLend> newBookLend(String nif, String isbn)throws BookNotFoundException,MemberNotFoundException{
+    public List<BookLend> newBookLend(String nif, String isbn) throws BookNotFoundException, MemberNotFoundException {
         for (Member member : members) {
-            if (member.getNif().equalsIgnoreCase(nif)){
-                for (Book book:catalogue){
-                    if (book.getIsbn().equalsIgnoreCase(isbn)){
-                        bookLends.add(new BookLend(isbn,nif,new Date()));
+            if (member.getNif().equalsIgnoreCase(nif)) {
+                for (Book book : catalogue) {
+                    if (book.getIsbn().equalsIgnoreCase(isbn)) {
+                        bookLends.add(new BookLend(isbn, nif, new Date()));
                         return bookLends;
                     }
                 }
@@ -52,17 +52,15 @@ public class Library {
         throw new MemberNotFoundException();
     }
 
-    public Book removeGenre(String genre,String isbn)throws BookNotFoundException{
-        for (Book book:catalogue){
-            if (book.getIsbn().equalsIgnoreCase(isbn)){
-                    if (book.getGenres().contains(genre)){
-                        book.getGenres().remove(genre);
-                        return book;
-                    }
-                }
+    public Book removeGenre(String genre, String isbn) throws BookNotFoundException {
+        for (Book book : catalogue) {
+            if (book.getIsbn().equalsIgnoreCase(isbn)) {
+                book.getGenres().remove(genre);
+                return book;
             }
-        throw new BookNotFoundException();
         }
+        throw new BookNotFoundException();
+    }
 
 
     public Library(String name, List<Member> members, List<Book> books, List<BookLend> bookLends) {

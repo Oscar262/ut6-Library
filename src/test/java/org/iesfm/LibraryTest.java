@@ -21,12 +21,10 @@ public class LibraryTest {
     }
 
     @Test
-    public void findCienciaFiccionTest() {
+    public void findFantasiaTest() {
         Library library = library();
-        List<Book> novelas = library.booksWithGenre("Ciencia ficcion");
-        Assert.assertEquals(2, novelas.size());
-        Assert.assertEquals("Libro1", novelas.get(0).getTitle());
-        Assert.assertEquals("Libro2", novelas.get(1).getTitle());
+        List<Book> novelas = library.booksWithGenre("Fantasia");
+        Assert.assertEquals(0, novelas.size());
     }
 
     @Test
@@ -35,6 +33,13 @@ public class LibraryTest {
         List<Member> members = library.membersInZipCode(2);
         Assert.assertEquals(1, members.size());
         Assert.assertEquals(2, members.get(0).getZipCode());
+    }
+
+    @Test
+    public void findMemberZipCode1Test() {
+        Library library = library();
+        List<Member> members = library.membersInZipCode(1);
+        Assert.assertEquals(0,members.size());
     }
 
     @Test
@@ -68,6 +73,13 @@ public class LibraryTest {
     public void removeNovelaBookNotFoundTest() throws BookNotFoundException {
         Library library = library();
         Book book = library.removeGenre("Novela", "100");
+    }
+
+    @Test()
+    public void removeNovelaGenreNotFoundTest() throws BookNotFoundException {
+        Library library = library();
+        Book book = library.removeGenre("Novela", "20");
+        Assert.assertEquals(1, book.getGenres().size());
     }
 
 
