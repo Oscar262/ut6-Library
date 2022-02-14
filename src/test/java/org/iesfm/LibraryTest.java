@@ -82,6 +82,32 @@ public class LibraryTest {
         Assert.assertEquals(1, book.getGenres().size());
     }
 
+    @Test
+    public void checkBookLendTest() throws BookNotFoundException, MemberNotFoundException {
+        Library library = library();
+        Boolean check=library.checkBookLend("1", 1);
+        Assert.assertEquals(true, check);
+    }
+
+    @Test(expected = BookNotFoundException.class)
+    public void checkBookLendBookNotFoundTest() throws BookNotFoundException, MemberNotFoundException {
+        Library library = library();
+        Boolean check=library.checkBookLend("100", 1);
+    }
+
+    @Test(expected = MemberNotFoundException.class)
+    public void checkBookLendMemberNotFoundTest() throws BookNotFoundException, MemberNotFoundException {
+        Library library = library();
+        Boolean check=library.checkBookLend("1", 5);
+    }
+    
+    @Test
+    public void checkBookLendNotFoundTest() throws BookNotFoundException, MemberNotFoundException {
+        Library library = library();
+        Boolean check=library.checkBookLend("20", 1);
+        Assert.assertEquals(false, check);
+    }
+
 
     public Library library() {
         HashSet<String> genres1 = new HashSet<>();

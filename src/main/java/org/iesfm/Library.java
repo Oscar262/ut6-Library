@@ -3,10 +3,7 @@ package org.iesfm;
 import org.iesfm.exceptions.BookNotFoundException;
 import org.iesfm.exceptions.MemberNotFoundException;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Library {
 
@@ -57,6 +54,27 @@ public class Library {
             if (book.getIsbn().equalsIgnoreCase(isbn)) {
                 book.getGenres().remove(genre);
                 return book;
+            }
+        }
+        throw new BookNotFoundException();
+    }
+
+    public boolean checkBookLend(String isbn, int numMember) throws BookNotFoundException, MemberNotFoundException {
+        for (Book book : catalogue) {
+            if (book.getIsbn().equalsIgnoreCase(isbn)) {
+                for (Member member : members) {
+                    if (member.getNumMember() == numMember) {
+                        String nif = member.getNif();
+                        for (BookLend bookLend : bookLends) {
+                            if (bookLend.getIsbn().equalsIgnoreCase(isbn)
+                                    && bookLend.getNifMember().equalsIgnoreCase(nif)) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }
+                throw new MemberNotFoundException();
             }
         }
         throw new BookNotFoundException();
